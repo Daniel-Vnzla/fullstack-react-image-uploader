@@ -1,3 +1,4 @@
+const Image = require('../models/image.js');
 
 const imageMimeType = ['image/jpeg','image/png','image/git'];
 
