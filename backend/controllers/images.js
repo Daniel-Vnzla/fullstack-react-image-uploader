@@ -14,7 +14,7 @@ const uploadImage = async (req, res) => {
 			message: 'Not File Found',
 		});
 	}
-	const { name, data, size, mimetype, mv } = req.files.image;
+	const { name, data, size, mimetype } = req.files.image;
 
 	if (!imageMimeType.includes(mimetype)){
 		return res.status(500).json({
@@ -23,10 +23,17 @@ const uploadImage = async (req, res) => {
 		});
 	}
 
+	if(size > 2000000){
+		return res.status(500).json({
+			status: false, 
+			message: 'Image size must be lower than 2mb',
+		});
+	}
+
 	const imageUrl = `data:${mimetype};charset=utf-8;base64,${data.toString('base64')}`;
 	const image = new Image({ 
 		name: name + Date.now(),
-		imageUrl, 
+		imageUrl,
 		size, 
 		mimetype 
 	});
