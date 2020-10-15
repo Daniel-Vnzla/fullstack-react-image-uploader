@@ -1,4 +1,8 @@
 
+export const getImages = async (req, res) => {
+	const images = await Image.find();
+	res.json(images);
+}
 
 export const uploadImage = async (req, res) => {
 	if (!req.files) {
