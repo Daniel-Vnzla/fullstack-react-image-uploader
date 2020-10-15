@@ -5,11 +5,11 @@ const ImageSchema = new Schema({
 		type: String,
 		required: true
 	},
-	data: { 
-		type: Buffer, 
+	imageUrl: { 
+		type: String, 
 		required: true
 	},
-	contentType: { 
+	mimetype: { 
 		type: String, 
 		required: true 
 	},
