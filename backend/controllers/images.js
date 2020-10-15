@@ -1,10 +1,12 @@
 
-export const getImages = async (req, res) => {
+const imageMimeType = ['image/jpeg','image/png','image/git'];
+
+const getImages = async (req, res) => {
 	const images = await Image.find();
 	res.json(images);
 }
 
-export const uploadImage = async (req, res) => {
+const uploadImage = async (req, res) => {
 	if (!req.files) {
 		return res.status(500).json({
 			status: false, 
@@ -39,4 +41,10 @@ export const uploadImage = async (req, res) => {
 	catch(err){
 		res.status(500).json({ message: err.message});
 	}
+}
+
+
+module.exports = {
+	uploadImage,
+	getImages,
 }
