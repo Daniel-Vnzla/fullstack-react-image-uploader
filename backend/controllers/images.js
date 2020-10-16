@@ -1,5 +1,4 @@
-const { v4 } = require('uuid');
-const path = require('path');
+const url = require('url');
 const Image = require('../models/image.js');
 
 const imageMimeType = ['image/jpeg','image/png','image/git'];
@@ -11,9 +10,9 @@ const getImages = async (req, res) => {
 
 const uploadImage = async (req, res) => {
 	if (!req.files) {
-		return res.status(400).json({
+		return res.status(500).json({
 			status: false, 
-			message: 'No File Uploaded',
+			message: 'Not File Found',
 		});
 	}
 	const { name, data, size, mimetype, mv } = req.files.image;
@@ -31,23 +30,22 @@ const uploadImage = async (req, res) => {
 			message: 'Image size must be lower than 2mb',
 		});
 	}
-	const randomName = v4() + '-' + name.split(' ').join('-');
+	
+	const buff = data.toString('base64');
 
-	mv(path.join(__dirname,'../uploads/' + randomName));
-
+	const imageUrl = `data:${mimetype};charset=utf-8;base64,${buff}`;
 	const image = new Image({ 
-		name: randomName,
-		imageUrl: `/${randomName}`,
-		mimetype,
+		name: Date.now() + name.slice('.')[0].split(' ').join('-'),
+		imageUrl, 
 		size, 
+		mimetype 
 	});
-  
+
 	try{
 		const savedImage = await image.save(); 
 		res.json({
 			status: true,
-			message: 'File Uploaded',
-			savedImage,
+			message: 'File Uploaded',		
 		});
 	}
 	catch(err){
