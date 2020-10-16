@@ -35,10 +35,10 @@ const uploadImage = async (req, res) => {
 
 	const imageUrl = `data:${mimetype};charset=utf-8;base64,${buff}`;
 	const image = new Image({ 
-		name: Date.now() + name.slice('.')[0].split(' ').join('-'),
-		imageUrl, 
+		name: name.slice('.')[0].split(' ').join('-'),
 		size, 
-		mimetype 
+		mimetype,
+		imageUrl, 
 	});
 
 	try{
