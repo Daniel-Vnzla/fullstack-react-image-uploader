@@ -45,7 +45,8 @@ const uploadImage = async (req, res) => {
 		const savedImage = await image.save(); 
 		res.json({
 			status: true,
-			message: 'File Uploaded',		
+			message: 'File Uploaded',
+			img: savedImage,	
 		});
 	}
 	catch(err){
