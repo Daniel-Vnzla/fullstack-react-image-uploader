@@ -29,6 +29,7 @@ const uploadImage = async (req, res) => {
 			message: 'Image size must be lower than 2mb',
 		});
 	}
+	
 	mv(`${__dirname}/../uploads/${name}`);
 
 	const image = new Image({ 
@@ -36,7 +37,7 @@ const uploadImage = async (req, res) => {
 		imageUrl: `${__dirname}/../uploads/${name}`,
 		size, 
 	});
-
+  
 	try{
 		const savedImage = await image.save(); 
 		res.json({
