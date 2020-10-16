@@ -27,7 +27,7 @@
 		</div>
 		<p>Drag / Click to upload image</p>
 	</div>
-	<input type="file" bind:files={$files}  />
+	<input id="image" type="file" bind:files={$files}  />
 </div>
 
 <style>
@@ -57,7 +57,6 @@
 		font-size: 1.5rem;
 		color: #fff;
 		z-index: 10;
-		opacity: 1;
 		pointer-events: none;
 	}
 

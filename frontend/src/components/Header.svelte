@@ -1,9 +1,12 @@
 <script>
-	
+	import { files } from '../stores.js';
 </script>
 
 <header class="header">
-	<button class="upload-btn">Upload</button>
+	<button class="upload-btn">
+		<label for="image" class="open-file" />
+		Upload
+	</button>
 	<h1 class="title">Mob</h1>
 </header>
 
@@ -23,6 +26,7 @@
 	}
 
 	.upload-btn {
+		position: relative;
 		background: linear-gradient(to left, #5F40C8, #CB50CF, #8E1F8E);
 		border: none;
 		color: #fff;
@@ -30,6 +34,16 @@
 		margin-right: 20px;
 		border-radius: 6px;
 		font-weight: bold;
+		overflow: hidden;
+	}
+
+	.open-file {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0;
 		cursor: pointer;
 	}
 </style>
