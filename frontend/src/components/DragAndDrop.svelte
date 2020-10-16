@@ -1,32 +1,73 @@
 <script>
-	
+	import Imagen from '../icons/Imagen.svelte';
+
+
+	const dragover = (e) => {
+		e.target.style.opacity = .8;
+	}
 </script>
 
-<div>
+<div 
+	class="drag-and-drop"
+	on:dragover={dragover}
+	>
+	<div class="image-preview">
+		<img src="" alt="">
+	</div>
+	<div class="figcap">
+		<div class="icon">
+			<Imagen />
+		</div>
+		<p>Drag / Click to upload image</p>
+	</div>
 	<input type="file"  />
 </div>
 
 <style>
-	input[type="file"] {
+	.drag-and-drop {
 		position: relative;
+
 		width: 600px;
 		height: 400px;
-		color: #fff;
-		overflow: hidden;
-		border-radius: 7px;
-		border: none;
-		box-shadow: 2px 1px 3px 1px rgba(0,0,0, .6);
-		transition: 300ms transform ease-in-out;
 	}
 
-	input[type="file"]::before {
+	.figcap {
 		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		font-size: 1.5rem;
 		color: #fff;
-		content: "Drag / Click to upload image";
+		z-index: 10;
+		pointer-events: none;
+	}
+
+	.icon {
+		width: 120px;
+		height: 120px;
+	}
+
+	input[type="file"] {
+		outline: none;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		color: #fff;
+		border-radius: 7px;
+		border: none;
+		box-shadow: 2px 1px 3px 1px rgba(0,0,0, .6);
+		transition: opacity 300ms ease;
+	}
+
+	input[type="file"]::before {
+		position: absolute;
+		content: "";
 		top: 0;
 		left: 0;
 		bottom: 0;
@@ -36,8 +77,7 @@
 	}
 
 	input[type="file"]:hover {
-		transform: scale(1.01);
+		opacity: .8;
 	}
-
 
 </style>
