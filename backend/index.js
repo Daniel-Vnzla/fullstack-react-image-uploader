@@ -22,4 +22,9 @@ app.use(fileUpload({
 //Routes
 app.use('/',require('./routes/images.js'));
 
+
+//static 
+app.use(express.static('uploads'));
+
+//server
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
