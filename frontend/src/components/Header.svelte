@@ -7,8 +7,6 @@
 	<h1 class="title">Mob</h1>
 </header>
 
-
-
 <style>
 	.header {
 		display: flex;
