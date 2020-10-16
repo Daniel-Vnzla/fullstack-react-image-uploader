@@ -1,10 +1,8 @@
 <script>
-	import DragAndDrop from './components/DragAndDrop.svelte';
+	import Home from './layouts/Home.svelte';
 </script>
 
-<main>
-	<DragAndDrop />
-</main>
+<Home />
 
 <style>
 	main {
