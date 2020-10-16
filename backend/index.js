@@ -4,6 +4,8 @@ const dovenv = require('dotenv').config();
 const fileUpload = require('express-fileupload');
 const app = express();
 
+const path = require('path');
+
 // Database
 const db = require('./db.js');
 
@@ -24,7 +26,7 @@ app.use('/',require('./routes/images.js'));
 
 
 //static 
-app.use(express.static('uploads'));
+app.use(express.static(path.join(__dirname,'/uploads')));
 
 //server
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))

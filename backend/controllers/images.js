@@ -1,3 +1,5 @@
+const { v4 } = require('uuid');
+const path = require('path');
 const Image = require('../models/image.js');
 
 const imageMimeType = ['image/jpeg','image/png','image/git'];
@@ -29,12 +31,14 @@ const uploadImage = async (req, res) => {
 			message: 'Image size must be lower than 2mb',
 		});
 	}
-	
-	mv(`${__dirname}/../uploads/${name}`);
+	const randomName = v4() + '-' + name.split(' ').join('-');
+
+	mv(path.join(__dirname,'../uploads/' + randomName));
 
 	const image = new Image({ 
-		name: name.slice('.')[0] + Date.now(),
-		imageUrl: `${__dirname}/../uploads/${name}`,
+		name: randomName,
+		imageUrl: `/${randomName}`,
+		mimetype,
 		size, 
 	});
   
