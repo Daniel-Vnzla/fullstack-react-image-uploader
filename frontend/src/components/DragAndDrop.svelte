@@ -1,34 +1,46 @@
 <script>
 	import Imagen from '../icons/Imagen.svelte';
 
+	import { files } from '../stores.js';
 
-	const dragover = (e) => {
-		e.target.style.opacity = .8;
+	let showDragAndDrop = false;
+
+	const dragOver = (e) => {
+		showDragAndDrop = true;
 	}
+	const drop = () => {
+		showDragAndDrop = false;
+	} 
+
+	$: console.log($files[0])
 </script>
 
+<svelte:window on:dragover={dragOver} on:drop={drop} />
+
 <div 
+	class:showDragAndDrop
 	class="drag-and-drop"
-	on:dragover={dragover}
 	>
-	<div class="image-preview">
-		<img src="" alt="">
-	</div>
 	<div class="figcap">
 		<div class="icon">
 			<Imagen />
 		</div>
 		<p>Drag / Click to upload image</p>
 	</div>
-	<input type="file"  />
+	<input type="file" bind:files={$files}  />
 </div>
 
 <style>
 	.drag-and-drop {
-		position: relative;
-
-		width: 600px;
-		height: 400px;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 9999;
+		opacity: 0;
+		visibility: hidden;
+		transition: 300ms opacity ease;
 	}
 
 	.figcap {
@@ -45,6 +57,7 @@
 		font-size: 1.5rem;
 		color: #fff;
 		z-index: 10;
+		opacity: 1;
 		pointer-events: none;
 	}
 
@@ -76,8 +89,10 @@
 		pointer-events: none;
 	}
 
-	input[type="file"]:hover {
-		opacity: .8;
+	.showDragAndDrop {
+		visibility: visible;
+		opacity: .7;
 	}
+
 
 </style>
