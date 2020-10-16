@@ -9,10 +9,6 @@ const ImageSchema = new Schema({
 		type: String, 
 		required: true
 	},
-	mimetype: { 
-		type: String, 
-		required: true 
-	},
 	size: { 
 		type: Number, 
 		required: true
