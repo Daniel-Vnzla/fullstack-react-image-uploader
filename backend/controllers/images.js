@@ -1,3 +1,4 @@
+const url = require('url');
 const Image = require('../models/image.js');
 
 const imageMimeType = ['image/jpeg','image/png','image/git'];
@@ -23,12 +24,21 @@ const uploadImage = async (req, res) => {
 		});
 	}
 
-	const imageUrl = `data:${mimetype};charset=utf-8;base64,${data.toString('base64')}`;
+	if(size > 2000000){
+		return res.status(500).json({
+			status: false, 
+			message: 'Image size must be lower than 2mb',
+		});
+	}
+	
+	const buff = data.toString('base64');
+
+	const imageUrl = `data:${mimetype};charset=utf-8;base64,${buff}`;
 	const image = new Image({ 
-		name: name + Date.now(),
-		imageUrl, 
+		name: name.slice('.')[0].split(' ').join('-'),
 		size, 
-		mimetype 
+		mimetype,
+		imageUrl, 
 	});
 
 	try{
@@ -36,7 +46,7 @@ const uploadImage = async (req, res) => {
 		res.json({
 			status: true,
 			message: 'File Uploaded',
-			imageUrl,
+			img: savedImage,	
 		});
 	}
 	catch(err){
