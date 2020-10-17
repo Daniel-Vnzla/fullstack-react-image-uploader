@@ -1,5 +1,5 @@
 <script>
-	import { files } from '../stores.js';
+
 </script>
 
 <header class="header">

@@ -1,7 +1,8 @@
 <script>
+	import axios from 'axios';
 	import Imagen from '../icons/Imagen.svelte';
 
-	import { files } from '../stores.js';
+	import { images } from '../stores.js';
 
 	let showDragAndDrop = false;
 
@@ -12,7 +13,26 @@
 		showDragAndDrop = false;
 	} 
 
-	$: console.log($files[0])
+	const uploadFile = async ({ target }) => {
+		const formData = new FormData();
+		formData.append('image', target.files[0])
+		try {
+			const { data } = await axios.post('https://react-image-upload-db.herokuapp.com/upload', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			},
+			onUploadProgress: progress => {
+				console.log(progress)
+			}
+
+		})
+			images.set([data.img,...$images ]);
+		}
+		catch(err){
+			console.log(err);
+		}
+		
+	}
 </script>
 
 <svelte:window on:dragover={dragOver} on:drop={drop} />
@@ -27,7 +47,11 @@
 		</div>
 		<p>Drag / Click to upload image</p>
 	</div>
-	<input id="image" type="file" bind:files={$files}  />
+	<input 
+		id="image"
+		type="file" 
+		on:change={uploadFile}
+	/>
 </div>
 
 <style>

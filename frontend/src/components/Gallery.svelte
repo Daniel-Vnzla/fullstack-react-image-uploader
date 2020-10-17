@@ -1,15 +1,21 @@
 <script>
 	import axios from 'axios';
+	import { images } from '../stores.js';
 
 	const fetchImages = async () => {
-		const { data } = await axios.get('https://react-image-upload-db.herokuapp.com/images');
-		return data;
+		try {
+			const { data } = await axios.get('https://react-image-upload-db.herokuapp.com/images');
+			images.set(data);
+		}
+		catch(err){
+			console.log(err);
+		}
 	}
 </script>
 
 <section class="gallery">
-	{#await fetchImages() then images }
-		{#each images as img}
+	{#await fetchImages() then data }
+		{#each $images as img}
 		<div class="img" >
 			<a href={img.imageUrl} download >
 				<img src={img.imageUrl} alt={img.name}>
