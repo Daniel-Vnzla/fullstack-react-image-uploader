@@ -35,7 +35,7 @@
 	}
 </script>
 
-<svelte:window on:dragover={dragOver} on:drop={drop} />
+<svelte:window on:mouseleave={drop} on:dragover={dragOver} on:drop={drop} />
 
 <div 
 	class:showDragAndDrop
